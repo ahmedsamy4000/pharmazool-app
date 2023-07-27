@@ -6,8 +6,6 @@ import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/onboarding_screens/onboarding_screen.dart';
 import 'package:pharmazool/onboarding_screens/splash_screen.dart';
 
-import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
-
 import 'app_cubit/cubit.dart';
 import 'app/patient/nav_screens/home_screen.dart';
 
