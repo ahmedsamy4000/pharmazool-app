@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmazool/api_dio/constants.dart';
 import 'package:pharmazool/app_cubit/states.dart';
-import 'package:pharmazool/onboarding_screens/onboarding_screen.dart';
+
 import 'package:pharmazool/onboarding_screens/splash_screen.dart';
 
 import 'app_cubit/cubit.dart';
