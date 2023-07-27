@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/components/constants.dart';
 
 class SearchBar extends StatelessWidget {
@@ -46,7 +46,6 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );

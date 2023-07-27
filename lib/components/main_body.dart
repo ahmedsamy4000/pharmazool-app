@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pharmazool/components/constants.dart';
 
 class MainBody extends StatelessWidget {
-  const MainBody({Key? key, required this.child, this.padding = const EdgeInsets.only(top: 30.0) // Default padding
+  const MainBody(
+      {Key? key,
+      required this.child,
+      this.padding = const EdgeInsets.only(top: 30.0) // Default padding
       })
       : super(key: key);
   final Widget child;
@@ -18,7 +21,6 @@ class MainBody extends StatelessWidget {
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0),
           topRight: Radius.circular(30.0),
-
         ),
       ),
       child: child,
