@@ -1,3 +1,5 @@
+import 'package:pharmazool/api_dio/services_paths.dart';
+
 class MedicineModel {
   String? id;
   String? name;
@@ -6,7 +8,7 @@ class MedicineModel {
   String? manufacturerName;
   String? originCountryName;
   String? image;
-  String? status;
+  bool? status;
   double? price;
   int? quantity;
   List? pharmacyMedicines;
@@ -30,9 +32,21 @@ class MedicineModel {
     desc = json['description'];
     manufacturerName = json['manufacturer']['name'];
     image = json['image'];
+    status = false;
     categoryId = json['genericId'].toString();
-    status = json['productStatusId'].toString();
     originCountryName = json['originCountryName'];
     pharmacyMedicines = json['pharmacyMedicines'];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': manufacturerName,
+      'image': image,
+      'genericId': categoryId,
+      'originCountryName': originCountryName,
+      'pharmacyMedicines': pharmacyMedicines
+    };
   }
 }

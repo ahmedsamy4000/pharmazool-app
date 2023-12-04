@@ -1,13 +1,13 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/assets_images_path.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/assets_images_path.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 import 'package:pharmazool/mymodels/medicine_model.dart';
 
 class SearchScreenDoctor extends StatefulWidget {
@@ -66,7 +66,10 @@ class _SearchScreenDoctorState extends State<SearchScreenDoctor> {
                         color: const Color(0xFF949098),
                       ),
                       suffixIcon: InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          searchcontroller.text = await AppCubit.get(context)
+                              .getImageForSeacrhPatient();
+                        },
                         child: Image.asset(
                           scan,
                           color: Colors.black,
@@ -82,9 +85,9 @@ class _SearchScreenDoctorState extends State<SearchScreenDoctor> {
                       child: ListView.builder(
                     itemBuilder: (context, index) {
                       return pharmacymedicineitem(
-                          AppCubit.get(context).searchedmedicines[index]);
+                          AppCubit.get(context).searchList[index]);
                     },
-                    itemCount: AppCubit.get(context).searchedmedicines.length,
+                    itemCount: AppCubit.get(context).searchList.length,
                   ))
                 ]),
               );
@@ -96,66 +99,78 @@ class _SearchScreenDoctorState extends State<SearchScreenDoctor> {
   }
 
   Widget pharmacymedicineitem(MedicineModel model) {
-    bool isexist(int id) {
-      bool exist = false;
-      model.pharmacyMedicines!.forEach((element) {
-        if (element['pharmacyId'] == int.parse(pharmamodel!.id.toString())) {
-          exist = true;
-        }
-      });
-      return exist;
+    getBytesDoctor(imageurl) {
+      var bytes = Uri.parse(imageurl);
+      return bytes.data!.contentAsBytes();
     }
+
+    model.image ??=
+        'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
     return SizedBox(
       width: double.infinity,
       child: Card(
         elevation: 5,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(70),
-              topRight: Radius.circular(70),
-              topLeft: Radius.circular(70),
-              bottomLeft: Radius.circular(70),
-            ),
-            side: BorderSide(width: 5, color: Colors.teal)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(70),
+            side: const BorderSide(width: 2, color: Colors.teal)),
         color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: SizedBox(
-              child: Image(
-                image: NetworkImage(model.image.toString() == 'string'
-                    ? 'https://static.vecteezy.com/system/resources/previews/000/297/920/original/vector-set-of-various-medicines.jpg'
-                    : model.image.toString()),
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Center(
-                child: Text(model.name.toString(),
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18))),
-            trailing: Switch(
-              value: isexist(int.parse(pharmamodel!.id.toString())),
-              onChanged: (value) {
-                if (isexist(int.parse(pharmamodel!.id.toString()))) {
-                  AppCubit.get(context).deletesearchpharmacymedicine(
-                      int.parse(model.id.toString()),
-                      int.parse(pharmamodel!.id.toString()),
-                      context,
-                      searchcontroller.text);
-                } else {
-                  AppCubit.get(context).addsearchpharmacymedicine(
-                      int.parse(model.id.toString()),
-                      int.parse(pharmamodel!.id.toString()),
-                      context,
-                      searchcontroller.text);
-                }
-              },
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
-            ),
+        child: ListTile(
+          leading: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: SizedBox(
+                width: 60,
+                height: 60,
+                child: model.image!.contains('base64')
+                    ? Image.memory(
+                        getBytesDoctor(model.image),
+                        scale: 2.0,
+                        errorBuilder: (BuildContext context, exception,
+                            StackTrace? stackTrace) {
+                          return const Center(
+                              child: Icon(
+                            Icons.notification_important,
+                          ));
+                        },
+                      )
+                    : FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/pharmaloading.gif',
+                        placeholderScale: 2,
+                        imageScale: 1,
+                        image: model.image!,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Text('error occured');
+                        },
+                        fit: BoxFit.fill,
+                      )),
+          ),
+          title: Text(model.name.toString(),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15)),
+          trailing: Switch(
+            value: model.status!,
+            onChanged: (value) {
+              if (model.status == true) {
+                AppCubit.get(context).deletesearchpharmacymedicine(
+                    int.parse(model.id!),
+                    int.parse(pharmamodel!.id!),
+                    context,
+                    searchcontroller.text);
+              } else {
+                AppCubit.get(context).addsearchpharmacymedicine(
+                    int.parse(model.id!),
+                    int.parse(pharmamodel!.id!),
+                    context,
+                    searchcontroller.text);
+              }
+              setState(() {
+                model.status = value;
+              });
+            },
+            activeTrackColor: Colors.lightGreenAccent,
+            activeColor: Colors.green,
           ),
         ),
       ),

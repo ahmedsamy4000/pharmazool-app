@@ -33,6 +33,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  basic_utils:
+    dependency: "direct main"
+    description:
+      name: basic_utils
+      sha256: c4f6b890f961ee3d6f70e2d65be99839055a4b4d1bb12c778d26b53e96eb33aa
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.5.2"
   bloc:
     dependency: transitive
     description:
@@ -81,6 +89,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.6"
+  convert:
+    dependency: transitive
+    description:
+      name: convert
+      sha256: "0f08b14755d163f6e2134cb58222dd25ea2a2ee8a195e53983d57c075324d592"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -616,6 +632,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.0"
   maps_launcher:
     dependency: "direct main"
     description:
@@ -760,6 +784,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
+  pointycastle:
+    dependency: transitive
+    description:
+      name: pointycastle
+      sha256: "7c1e5f0d23c9016c5bbd8b1473d0d3fb3fc851b876046039509e18e0c7485f2c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.7.3"
   polylabel:
     dependency: transitive
     description:

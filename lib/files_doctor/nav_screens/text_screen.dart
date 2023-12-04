@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 import 'package:pharmazool/files_doctor/nav_screens/receipt_screen.dart';
 
 class ScannedTextDoctor extends StatelessWidget {
@@ -60,6 +60,7 @@ class ScannedTextDoctor extends StatelessWidget {
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
+                              readOnly: true,
                               controller: doctorsearchcontroller),
                         ),
                       ),

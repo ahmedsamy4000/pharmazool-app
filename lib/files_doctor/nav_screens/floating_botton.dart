@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pharmazool/files_doctor/nav_screens/barcode.dart';
 
-import '../../components/utils/assets_images_path.dart';
+import '../../constants_widgets/utils/assets_images_path.dart';
 
 class FloatingBotton extends StatelessWidget {
   const FloatingBotton({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pharmazool/api_dio/constants.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 import 'package:pharmazool/app/patient/lay_out.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';

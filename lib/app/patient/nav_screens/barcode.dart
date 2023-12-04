@@ -8,7 +8,7 @@ import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/search_screen/search_screen_patient.dart';
 
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 
 import 'BottomNavBarWidget.dart';
 import '../../../files_doctor/nav_screens/floating_botton.dart';
@@ -22,7 +22,14 @@ class BarCode extends StatefulWidget {
 
 class _BarCodeState extends State<BarCode> {
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String search = '';
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -54,11 +61,18 @@ class _BarCodeState extends State<BarCode> {
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                               onPressed: () async {
-                                await AppCubit.get(context).getPostImage2();
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SearchScreenPatient()));
+                                String updatedSearch =
+                                    await AppCubit.get(context)
+                                        .getImageForSeacrhPatient();
+                                if (updatedSearch.isNotEmpty) {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => SearchScreenPatient(
+                                        search: updatedSearch,
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                               child: Row(
                                 children: const [
@@ -77,11 +91,18 @@ class _BarCodeState extends State<BarCode> {
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                               onPressed: () async {
-                                await AppCubit.get(context).getPostImage();
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SearchScreenPatient()));
+                                String updatedSearch =
+                                    await AppCubit.get(context)
+                                        .getGalleryImageForPatientSearch();
+                                if (updatedSearch.isNotEmpty) {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => SearchScreenPatient(
+                                        search: updatedSearch,
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                               child: Row(
                                 children: const [

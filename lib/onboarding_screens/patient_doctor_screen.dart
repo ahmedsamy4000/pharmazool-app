@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmazool/app/doctor/screens/tap_doctor_auth_screen.dart';
 import 'package:pharmazool/app/patient/auth_screens/tap_patient_auth_screen.dart';
-import 'package:pharmazool/components/utils/assets_images_path.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/assets_images_path.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 
-import '../components/utils/app_theme_colors.dart';
+import '../constants_widgets/utils/app_theme_colors.dart';
 
 class PatientDoctorScreen extends StatelessWidget {
   const PatientDoctorScreen({Key? key}) : super(key: key);

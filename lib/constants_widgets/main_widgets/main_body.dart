@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmazool/components/constants.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/constants.dart';
 
 class MainBody extends StatelessWidget {
   const MainBody(
@@ -16,7 +16,7 @@ class MainBody extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: padding,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: kWhite,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0),

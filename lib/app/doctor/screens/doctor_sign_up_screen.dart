@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 
-import 'package:pharmazool/components/utils/media_query_values.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 import 'package:pharmazool/files_doctor/home_screen.dart';
 
-import '../../../components/utils/app_theme_colors.dart';
+import '../../../constants_widgets/utils/app_theme_colors.dart';
 
 class DoctorSignUp extends StatefulWidget {
   const DoctorSignUp({super.key});

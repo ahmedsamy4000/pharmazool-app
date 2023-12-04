@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 
-import '../../../components/utils/app_theme_colors.dart';
+import '../../../constants_widgets/utils/app_theme_colors.dart';
 
 import '../lay_out.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';

@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmazool/app/doctor/screens/doctor_sign_in_screen.dart';
 
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 
 import 'doctor_sign_up_screen.dart';
 

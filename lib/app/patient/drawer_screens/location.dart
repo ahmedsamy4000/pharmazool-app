@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 
 class Location extends StatefulWidget {
   const Location({Key? key}) : super(key: key);

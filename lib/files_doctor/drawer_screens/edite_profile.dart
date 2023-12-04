@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:pharmazool/api_dio/constants.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 import 'package:pharmazool/files_doctor/drawer_screens/confirm_edite.dart';
 
-import 'package:pharmazool/components/widgets/default_text_form_field_for_problem.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/default_text_form_field_for_problem.dart';
 
 class EditeProfile extends StatefulWidget {
   EditeProfile({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmazool/app/patient/nav_screens/barcode.dart';
 
-import '../../../components/utils/assets_images_path.dart';
+import '../../../constants_widgets/utils/assets_images_path.dart';
 
 class FloatingBottonPatient extends StatelessWidget {
   const FloatingBottonPatient({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmazool/components/catalog-model.dart';
+
+import 'package:pharmazool/constants_widgets/main_widgets/catalog-model.dart';
 
 class ItemWidget extends StatelessWidget {
   final Item item;

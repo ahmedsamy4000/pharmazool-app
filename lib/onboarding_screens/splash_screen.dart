@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:pharmazool/api_dio/constants.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 import 'package:pharmazool/onboarding_screens/onboarding_screen.dart';
 import 'package:geolocator/geolocator.dart';
 

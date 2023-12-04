@@ -1,20 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/search_screen/search_bar.dart';
-import 'package:pharmazool/components/constants.dart';
-import 'package:pharmazool/components/main_body.dart';
-import 'package:pharmazool/components/utils/assets_images_path.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/constants.dart';
 
-import 'package:pharmazool/files_doctor/categories_screens/Heart-care.dart';
-import 'package:pharmazool/files_doctor/categories_screens/antibiotic.dart';
-import 'package:pharmazool/files_doctor/categories_screens/baby-care.dart';
-import 'package:pharmazool/files_doctor/categories_screens/body_care.dart';
-import 'package:pharmazool/files_doctor/categories_screens/eye-care.dart';
-import 'package:pharmazool/files_doctor/categories_screens/haircare.dart';
-import 'package:pharmazool/files_doctor/categories_screens/medicaleq.dart';
-import 'package:pharmazool/files_doctor/categories_screens/oral-care.dart';
-import 'package:pharmazool/files_doctor/categories_screens/pain-relief.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/main_constants.dart';
+
+import 'package:pharmazool/files_doctor/medicine_screen_doctor.dart';
 
 import 'package:pharmazool/files_doctor/nav_screens/search_screen.dart';
 
@@ -59,361 +54,28 @@ class HomeScreenDoctor1 extends StatelessWidget {
                               fit: BoxFit.cover)),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   SearchBar(() {
                     cubit.getsearchmedicine('');
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const SearchScreenDoctor()));
                   }),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Expanded(
-                    child: MainBody(
-                      child: SingleChildScrollView(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GridView(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 2,
-                                  mainAxisSpacing: 8,
-                                  mainAxisExtent: 110,
-                                ),
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 7);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PainRelief()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            painrelife,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              "مسكن الألم",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 8);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Antibiotic()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            antibaiotic,
-                                            height: 80,
-                                            width: 120,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'مضاد حيوي',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 9);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const EyeCare()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            eyecare,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'العناية بالعيون',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 10);
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const OralCare()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            diabetesCare,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'الامراض المزمنة',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 11);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const BabyCare()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            babyCare,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'عناية الطفل',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 12);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HeartCare()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            heartCare,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'رعاية القلب',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 13);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MedicalEquipments()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            header,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'المعدات الطبية',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 14);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const BodyCare()));
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle),
-                                          child: Image.asset(
-                                            ppp,
-                                            height: 80,
-                                            width: 80,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const Expanded(
-                                          child: Text(
-                                            'العناية بالجسم',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.getMedicinesByID(id: 15);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HairCare()));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            hair,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                          const Expanded(
-                                            child: Text(
-                                              'العناية بالشعر',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.normal),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
+                    child: Container(
+                      color: Colors.white,
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 2,
+                          mainAxisSpacing: 10,
+                          mainAxisExtent: 130,
+                        ),
+                        itemBuilder: (context, index) {
+                          return homeGridViewDoctor(homelist[index], context);
+                        },
+                        itemCount: homelist.length,
                       ),
                     ),
                   )
@@ -425,4 +87,59 @@ class HomeScreenDoctor1 extends StatelessWidget {
       },
     );
   }
+}
+
+homeGridViewDoctor(HomeIconsModel homeIconModel, BuildContext context) {
+  return InkWell(
+    onTap: () {
+      mycategorymodel = homeIconModel;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MedicineScreenDoctor(
+                  int.parse(homeIconModel.genericid.toString()))));
+      AppCubit.get(context).getMedicinesByID(id: homeIconModel.genericid!);
+    },
+    child: SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(0),
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: context.height * 0.1,
+              width: context.height * 0.1,
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Image.asset(
+                homeIconModel.icon.toString(),
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(
+              height: context.height * 0.0035,
+            ),
+            AutoSizeText(
+              homeIconModel.title.toString(),
+              style: const TextStyle(
+                  color: Colors.black,
+                  // fontSize: context.height * 0.017,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Schyler'),
+            ),
+            SizedBox(
+              height: context.height * 0.02,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

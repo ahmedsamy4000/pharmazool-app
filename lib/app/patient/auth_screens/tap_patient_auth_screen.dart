@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmazool/app/doctor/screens/doctor_sign_up_screen.dart';
 import 'package:pharmazool/app/patient/auth_screens/patient_register_screen.dart';
 import 'package:pharmazool/app/patient/auth_screens/sign_in_screen.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 
 class TabBarScreen_patient extends StatefulWidget {
   const TabBarScreen_patient({Key? key}) : super(key: key);

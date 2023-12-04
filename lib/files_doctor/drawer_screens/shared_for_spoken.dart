@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/widgets/default_text_form_field_for_problem.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/default_text_form_field_for_problem.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 

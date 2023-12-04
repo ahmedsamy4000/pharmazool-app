@@ -1,17 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app/doctor/screens/chek_step.dart';
 import 'package:pharmazool/app/patient/auth_screens/confirm_password_screen.dart';
 import 'package:pharmazool/app/patient/auth_screens/forget_password_screem.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/nav_screens/home_screen.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 import 'package:pharmazool/app/patient/lay_out.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 import 'package:pharmazool/files_doctor/home_screen.dart';
 
 class DoctorSignin extends StatefulWidget {

@@ -5,23 +5,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/category_screens/MedicineScreen.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/assets_images_path.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/assets_images_path.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 
 class SearchScreenPatient extends StatefulWidget {
-  const SearchScreenPatient({super.key});
+  String? search;
+  SearchScreenPatient({super.key, this.search = ''});
 
   @override
   State<SearchScreenPatient> createState() => _SearchScreenPatientState();
 }
 
 class _SearchScreenPatientState extends State<SearchScreenPatient> {
+  var searchcontroller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    if (widget.search!.isNotEmpty) {
+      searchcontroller.text = widget.search!;
+    }
+  }
+
+  @override
+  void dispose() {
+    searchcontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var searchcontroller =
-        TextEditingController(text: AppCubit.get(context).searcher);
     return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -67,8 +81,9 @@ class _SearchScreenPatientState extends State<SearchScreenPatient> {
                       color: const Color(0xFF949098),
                     ),
                     suffixIcon: InkWell(
-                      onTap: () {
-                        AppCubit.get(context).getPostImage2();
+                      onTap: () async {
+                        searchcontroller.text = await AppCubit.get(context)
+                            .getGalleryImageForPatientSearch();
                       },
                       child: Image.asset(
                         scan,
@@ -97,11 +112,9 @@ class _SearchScreenPatientState extends State<SearchScreenPatient> {
                         },
                         itemBuilder: (context, index) {
                           return medicineItem(
-                              AppCubit.get(context).searchedmedicines[index],
-                              context);
+                              AppCubit.get(context).searchList[index], context);
                         },
-                        itemCount:
-                            AppCubit.get(context).searchedmedicines.length,
+                        itemCount: AppCubit.get(context).searchList.length,
                       ));
                     })
               ]),

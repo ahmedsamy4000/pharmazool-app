@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:basic_utils/basic_utils.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -10,17 +11,19 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/api_dio/dio.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/nav_screens/barcode.dart';
 import 'package:pharmazool/app/patient/nav_screens/home_screen.dart';
+import 'package:pharmazool/repo/services.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
 import 'package:pharmazool/files_doctor/nav_screens/home_doctor_screen.dart';
 import 'package:pharmazool/mymodels/medicine_model.dart';
 import 'package:pharmazool/mymodels/pharmacy_model.dart';
 import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
 import '../app/patient/nav_screens/history_screen.dart';
+import 'dart:developer' as logDev;
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialState());
@@ -45,22 +48,21 @@ class AppCubit extends Cubit<AppStates> {
     emit(changeBottomNAvState());
   }
 
-  List<MedicineModel> searchedmedicines = [];
+  var searchList = [];
   void getsearchmedicine(String search) {
-    searchedmedicines = [];
+    searchList = [];
     emit(GetMedicinesByIdLoadingState());
+    //get data without pagination
     DioHelper.getData(
-      url: getMedicineEndPoint,
+      url: 'Medicine/GetAllMedicine?PageSize=40&Search=$search',
     ).then((value) {
       value.data['data'].forEach((element) {
         if (search.isNotEmpty) {
-          if (element['name'].toString().contains(search) ||
-              element['name'].toString().contains(search.toUpperCase()) ||
-              element['tradeName'].toString().contains(search)) {
-            searchedmedicines.add(MedicineModel.fromJson(element));
-          }
+          searchList.add(MedicineModel.fromJson(element));
         }
       });
+      search = '';
+      updatestatus(searchList);
       emit(GetMedicinesByIdSuccesState());
     }).catchError((error) {
       print(error);
@@ -68,32 +70,77 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  var medicinesbyId = [];
+  List<MedicineModel> medicinesbyId = [];
+
+  // void getmedicinebyrepo({int id = 0, String search = ''}) async {
+  // medicinesbyId = [];
+  //GetMedicineData data = GetMedicineData();
+  //emit(GetMedicinesByIdLoadingState());
+  //try {
+  //  medicinesbyId = await data.getmedicinelist(id, search, medicinesbyId);
+  //emit(GetMedicinesByIdSuccesState());
+  //} catch (error) {
+  // print(error.toString());
+  //emit(GetMedicinesByIdErrorState());
+  //}
+  // }
+  void updatestatus(var pharmacymedicinelist) {
+    pharmacymedicinelist.forEach((element) {
+      element.pharmacyMedicines!.forEach((element1) {
+        if (element1['pharmacyId'] == int.parse(pharmamodel!.id!)) {
+          element.status = true;
+        } else {
+          element.status = false;
+        }
+      });
+    });
+  }
+
+  void searchGenericMedicinePatient(String search, int id) {
+    medicinesbyId = [];
+    emit(SearchGenericMedicinePatientLoadingState());
+    DioHelper.getData(
+      url:
+          'Medicine/GetMedicineByGeneric?genericId=$id&Search=$search&PageSize=15',
+    ).then((value) {
+      value.data['data'].forEach((element) {
+        medicinesbyId.add(MedicineModel.fromJson(element));
+      });
+      emit(SearchGenericMedicinePatientSuccesState());
+    }).catchError((error) {
+      emit(SearchGenericMedicinePatientErrorState());
+    });
+  }
+
   void getMedicinesByID({int id = 0, String search = ""}) {
     medicinesbyId = [];
     emit(GetMedicinesByIdLoadingState());
     DioHelper.getData(
-      url: getMedicineEndPoint,
+      url:
+          'Medicine/GetMedicineByGeneric?genericId=$id&PageSize=15&Search=$search',
     ).then((value) {
       value.data['data'].forEach((element) {
-        if (element['genericId'] == id) {
-          if (search.isNotEmpty) {
-            if (element['name'].toString().contains(search.toLowerCase()) ||
-                element['name'].toString().contains(search.toUpperCase()) ||
-                element['tradeName'].toString().contains(search)) {
-              medicinesbyId.add(MedicineModel.fromJson(element));
-            }
-          } else {
-            medicinesbyId.add(MedicineModel.fromJson(element));
-          }
-        }
+        medicinesbyId.add(MedicineModel.fromJson(element));
       });
-
+      updatestatus(medicinesbyId);
       emit(GetMedicinesByIdSuccesState());
     }).catchError((error) {
-      print(error);
       emit(GetMedicinesByIdErrorState());
     });
+  }
+
+  void medicinelistpagination(
+      {var medicinelist, int? page, int? id, String? search}) async {
+    emit(IncreamentOfMedicineListLoadingState());
+    GetMedicineData data = GetMedicineData();
+    try {
+      await data.medicinelistpaginationRepo(medicinelist, id!, page!, search!);
+
+      emit(IncreamentOfMedicineListSuccesState());
+    } catch (error) {
+      print(error);
+      emit(IncreamentOfMedicineListErrorState());
+    }
   }
 
   void userlogin({required String username, required String password}) {
@@ -234,7 +281,7 @@ class AppCubit extends Cubit<AppStates> {
     pharmacyList = [];
     filteredpharmacyList = [];
     nearestpharmacies = [];
-    emit(GetPahrmaciesLoadingState());
+    emit(GetPharmaciesLoadingState());
     DioHelper.getData(url: getPharmacyEndPoint).then((value) {
       value.data['data'].forEach((element) {
         element['pharmacyMedicines'].forEach((pharmacieselement) {
@@ -300,10 +347,10 @@ class AppCubit extends Cubit<AppStates> {
         });
       }
       print(pharmacyList.length);
-      emit(GetPahrmaciesSuccesState());
+      emit(GetPharmaciesSuccesState());
     }).catchError((error) {
       print(error);
-      emit(GetPahrmaciesErrorState());
+      emit(GetPharmaciesErrorState());
     });
   }
 
@@ -311,6 +358,25 @@ class AppCubit extends Cubit<AppStates> {
   List<String> doctorSearcher = [''];
 
   File? textImage;
+  Future<String> getGalleryImageForPatientSearch() async {
+    String search = '';
+    XFile? PickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (PickedFile != null) {
+      textImage = File(PickedFile.path);
+      List<TextBlock> rectext = await recogniseText(textImage);
+      rectext.forEach((element) {
+        search = search + element.text;
+      });
+
+      emit(PickImageSuccesState());
+    } else {
+      emit(PickImageErrorState());
+    }
+    return search;
+  }
 
   Future<void> getPostImage() async {
     XFile? PickedFile = await ImagePicker().pickImage(
@@ -325,6 +391,7 @@ class AppCubit extends Cubit<AppStates> {
         searcher = searcher + element.text;
         doctorSearcher.add(element.text);
       });
+      print(doctorSearcher);
 
       emit(PickImageSuccesState());
     } else {
@@ -366,7 +433,7 @@ class AppCubit extends Cubit<AppStates> {
       List<TextBlock> rectext = await recogniseText(textImage2);
       rectext.forEach((element) {
         searcher = searcher + element.text;
-        doctorSearcher.add("${element.text} '\n' ");
+        doctorSearcher.add("${element.text}");
       });
       print(searcher);
 
@@ -374,6 +441,25 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       emit(PickImageErrorState());
     }
+  }
+
+  Future<String> getImageForSeacrhPatient() async {
+    String search = '';
+    XFile? PickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+    if (PickedFile != null) {
+      textImage2 = File(PickedFile.path);
+      List<TextBlock> rectext = await recogniseText(textImage2);
+      rectext.forEach((element) {
+        search = search + element.text;
+      });
+
+      emit(PickImageSuccesState());
+    } else {
+      emit(PickImageErrorState());
+    }
+    return search;
   }
 
   static Future<List<TextBlock>> recogniseText(File? image) async {
@@ -402,7 +488,7 @@ class AppCubit extends Cubit<AppStates> {
       'pharmacyId': pharmacyid,
       'price': 60,
       'quantity': 60,
-      'productStatusId': 1,
+      'productStatusId': 10,
     }).then((value) {
       showDialog(
         context: context,
@@ -435,7 +521,7 @@ class AppCubit extends Cubit<AppStates> {
           'pharmacyId': pharmacyid,
           'price': 60,
           'quantity': 60,
-          'productStatusId': 1,
+          'productStatusId': 10,
         }).then((value) {
       showDialog(
         context: context,
@@ -458,6 +544,12 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  bool isactive = false;
+  void changeisactive() {
+    isactive = !isactive;
+    emit(ChangeMedicineSatteSuccesState());
+  }
+
   void addpharmacymedicine(int medicineid, int pharmacyid, context, int id) {
     emit(ChangeMedicineSatteLoadingState());
     DioHelper.postData(url: postPharmacyMedicineEndPoint, data: {
@@ -465,7 +557,7 @@ class AppCubit extends Cubit<AppStates> {
       'pharmacyId': pharmacyid,
       'price': 60,
       'quantity': 60,
-      'productStatusId': 1,
+      'productStatusId': 10,
     }).then((value) {
       showDialog(
         context: context,
@@ -474,7 +566,6 @@ class AppCubit extends Cubit<AppStates> {
           actions: [
             TextButton(
                 onPressed: () {
-                  getMedicinesByID(id: id);
                   Navigator.pop(context);
                 },
                 child: Text('تم'))
@@ -497,7 +588,7 @@ class AppCubit extends Cubit<AppStates> {
           'pharmacyId': pharmacyid,
           'price': 60,
           'quantity': 60,
-          'productStatusId': 1,
+          'productStatusId': 10,
         }).then((value) {
       showDialog(
         context: context,
@@ -506,7 +597,6 @@ class AppCubit extends Cubit<AppStates> {
           actions: [
             TextButton(
                 onPressed: () {
-                  getMedicinesByID(id: id);
                   Navigator.pop(context);
                 },
                 child: Text('تم'))
@@ -524,7 +614,7 @@ class AppCubit extends Cubit<AppStates> {
       List<String> pharmacymedicines, String type) async {
     Map<String, dynamic> data = {};
     var search = jsonEncode(pharmacymedicines);
-
+    print(search);
     emit(UpdatePharmacyMedicineLoadingState());
     await DioHelper.updatedata(
             url: 'PharmacyMedicine/$type/${pharmamodel!.id}', data: search)

@@ -48,11 +48,11 @@ class AppResetPasswordSuccesState extends AppStates {}
 
 //get pharmacies
 
-class GetPahrmaciesLoadingState extends AppStates {}
+class GetPharmaciesLoadingState extends AppStates {}
 
-class GetPahrmaciesSuccesState extends AppStates {}
+class GetPharmaciesSuccesState extends AppStates {}
 
-class GetPahrmaciesErrorState extends AppStates {}
+class GetPharmaciesErrorState extends AppStates {}
 
 //scan image
 class PickImageSuccessState extends AppStates {}
@@ -63,6 +63,13 @@ class GetMedicinesByIdLoadingState extends AppStates {}
 class GetMedicinesByIdSuccesState extends AppStates {}
 
 class GetMedicinesByIdErrorState extends AppStates {}
+
+// getmedicines by id
+class SearchGenericMedicinePatientLoadingState extends AppStates {}
+
+class SearchGenericMedicinePatientSuccesState extends AppStates {}
+
+class SearchGenericMedicinePatientErrorState extends AppStates {}
 
 //change location
 class ChangeLocalityState extends AppStates {}
@@ -124,3 +131,10 @@ class UpdatePharmacyMedicineLoadingState extends AppStates {}
 class UpdatePharmacyMedicineSuccesState extends AppStates {}
 
 class UpdatePharmacyMedicineErrorState extends AppStates {}
+
+// pagination
+class IncreamentOfMedicineListLoadingState extends AppStates {}
+
+class IncreamentOfMedicineListSuccesState extends AppStates {}
+
+class IncreamentOfMedicineListErrorState extends AppStates {}

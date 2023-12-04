@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 
 import 'package:pharmazool/onboarding_screens/splash_screen.dart';

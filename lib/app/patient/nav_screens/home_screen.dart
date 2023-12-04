@@ -1,16 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app/patient/drawer_screens/shared_for_spoken.dart';
 
 import 'package:pharmazool/app/patient/drawer_screens/who_are_screen.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app/patient/drawer_screens/motabra_screen.dart';
 import 'package:pharmazool/app/patient/search_screen/search_screen_patient.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/patient_drawer.dart';
 
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 import 'package:pharmazool/app/patient/drawer_screens/location.dart';
+import 'package:pharmazool/constants_widgets/main_constants.dart';
 import 'package:pharmazool/onboarding_screens/onboarding_screen.dart';
 
 import '../category_screens/MedicineScreen.dart';
@@ -37,125 +39,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Stack(
-                children: [
-                  const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(
-                        "https://randomuser.me/api/portraits/men/47.jpg"),
-                    radius: 50,
-                  ),
-                  Positioned(
-                    bottom: 8.0,
-                    left: 4.0,
-                    child: Text(
-                      userName!,
-                      style: const TextStyle(color: Colors.black, fontSize: 20),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios, size: 20),
-              leading: const Icon(Icons.person_pin),
-              title: const Text(
-                'من نحن ؟',
-                style: TextStyle(
-                  color: Colors.black,
-                  // fontSize: context.height * 0.017,
-                  fontSize: 20,
-                  fontStyle: FontStyle.normal,
-                  fontFamily: 'Schyler',
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const WhoAreScreenPatient(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios, size: 20),
-              leading: const Icon(Icons.favorite),
-              title: const Text(
-                'التبرع بالأدوية',
-                style: TextStyle(
-                  color: Colors.black,
-                  // fontSize: context.height * 0.017,
-                  fontSize: 20,
-                  fontStyle: FontStyle.normal,
-                  fontFamily: 'Schyler',
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MotabraScreen(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios, size: 20),
-              leading: const Icon(Icons.message),
-              title: const Text(
-                'شاركنا باقتراحك',
-                style: TextStyle(
-                    color: Colors.black,
-                    // fontSize: context.height * 0.017,
-                    fontSize: 20,
-                    fontStyle: FontStyle.normal,
-                    fontFamily: 'Schyler'),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SharedForSpokenPatient(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(),
-            ListTile(
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 20,
-              ),
-              leading: const Icon(Icons.logout),
-              title: const Text(
-                'تسجيل خروج',
-                style: TextStyle(
-                    color: Colors.black,
-                    // fontSize: context.height * 0.017,
-                    fontSize: 20,
-                    fontStyle: FontStyle.normal,
-                    fontFamily: 'Schyler'),
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OnBoardingScreen(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: const PatientDrawer(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -180,7 +64,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SearchBar(() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: ((context) => const SearchScreenPatient())));
+                    builder: ((context) => SearchScreenPatient())));
               }),
               Container(
                 color: Colors.white,
@@ -220,8 +104,7 @@ homeGridView(HomeIconsModel homeIconModel, BuildContext context) {
           MaterialPageRoute(
               builder: (context) => MedicineScreen(
                   int.parse(homeIconModel.genericid.toString()))));
-      AppCubit.get(context)
-          .getMedicinesByID(id: int.parse(homeIconModel.genericid.toString()));
+      AppCubit.get(context).getMedicinesByID(id: homeIconModel.genericid!);
     },
     child: SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -237,7 +120,7 @@ homeGridView(HomeIconsModel homeIconModel, BuildContext context) {
               alignment: Alignment.center,
               height: context.height * 0.1,
               width: context.height * 0.1,
-              decoration: BoxDecoration(shape: BoxShape.circle),
+              decoration: const BoxDecoration(shape: BoxShape.circle),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Image.asset(
                 homeIconModel.icon.toString(),

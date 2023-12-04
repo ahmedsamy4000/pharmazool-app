@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
 
 class WhoAreScreen extends StatelessWidget {
   const WhoAreScreen({Key? key}) : super(key: key);

@@ -2,9 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pharmazool/onboarding_screens/patient_doctor_screen.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 
-import '../components/utils/app_theme_colors.dart';
+import '../constants_widgets/utils/app_theme_colors.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);

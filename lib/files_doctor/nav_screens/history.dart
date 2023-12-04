@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmazool/app/doctor/model/itemWidget.dart';
 import 'package:pharmazool/app/patient/nav_screens/barcode.dart';
 import 'package:pharmazool/app/patient/nav_screens/home_screen.dart';
-import 'package:pharmazool/components/catalog-model.dart';
+
+import 'package:pharmazool/constants_widgets/main_widgets/catalog-model.dart';
 
 class History extends StatefulWidget {
   const History({Key? key}) : super(key: key);

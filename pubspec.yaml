@@ -51,6 +51,7 @@ dependencies:
   shared_preferences: ^2.0.15
   conditional_builder_null_safety: ^0.0.6
   google_ml_kit: ^0.14.0
+  basic_utils: ^4.4.1
   read_pdf_text: ^0.2.1
   image_picker: ^0.8.7+4
   flutter_mobile_vision_2: ^0.1.15

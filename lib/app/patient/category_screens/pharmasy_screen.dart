@@ -2,14 +2,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmazool/api_dio/constants.dart';
+import 'package:pharmazool/api_dio/services_paths.dart';
 import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 import 'package:pharmazool/app/patient/category_screens/locationinfo.dart';
+import 'package:pharmazool/constants_widgets/main_constants.dart';
 import 'package:pharmazool/mymodels/pharmacy_model.dart';
-import '../../../components/utils/app_theme_colors.dart';
+import '../../../constants_widgets/utils/app_theme_colors.dart';
 import '../nav_screens/BottomNavBarWidget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -86,7 +87,7 @@ class PharmasyScreen extends StatelessWidget {
                                       children: [
                                         ConditionalBuilder(
                                           condition: state
-                                                  is! GetPahrmaciesLoadingState &&
+                                                  is! GetPharmaciesLoadingState &&
                                               state
                                                   is! GetFilteredPharmaciesLoadingState,
                                           fallback: (context) => Container(

@@ -5,10 +5,10 @@ import 'package:pharmazool/app_cubit/cubit.dart';
 import 'package:pharmazool/app_cubit/states.dart';
 import 'package:pharmazool/app/patient/category_screens/pharmasy_screen.dart';
 import 'package:pharmazool/app/patient/nav_screens/BottomNavBarWidget.dart';
-import 'package:pharmazool/components/widgets/loadingwidget.dart';
+import 'package:pharmazool/constants_widgets/main_widgets/loadingwidget.dart';
 import 'package:pharmazool/files_doctor/nav_screens/floating_botton.dart';
-import 'package:pharmazool/components/utils/app_theme_colors.dart';
-import 'package:pharmazool/components/utils/media_query_values.dart';
+import 'package:pharmazool/constants_widgets/utils/app_theme_colors.dart';
+import 'package:pharmazool/constants_widgets/utils/media_query_values.dart';
 
 class NearbyPharmacies extends StatelessWidget {
   const NearbyPharmacies({super.key});
@@ -79,7 +79,7 @@ class NearbyPharmacies extends StatelessWidget {
                                       children: [
                                         ConditionalBuilder(
                                             condition: state
-                                                    is! GetPahrmaciesLoadingState &&
+                                                    is! GetPharmaciesLoadingState &&
                                                 state
                                                     is! GetFilteredPharmaciesLoadingState,
                                             fallback: (context) => Container(
